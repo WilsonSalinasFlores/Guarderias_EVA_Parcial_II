@@ -28,10 +28,7 @@ namespace GestionGuarderiaBackEnd.Models.Entidades
         [Required]
         public DateTime FechaAsignacion { get; set; }
 
-        // Propiedad adicional
-        public string Notas { get; set; }
-
-        // Removed invalid syntax and corrected the property declaration
+    
         
     }
 

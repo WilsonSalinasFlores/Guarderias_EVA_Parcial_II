@@ -25,8 +25,6 @@ namespace GestionGuarderiaBackEnd.Models.Entidades
         [JsonIgnore]
         public ICollection<AsignacionModel> Asignaciones { get; set; }
 
-        // Propiedad adicional
-        public string Notas { get; set; }
     }
 
 }
