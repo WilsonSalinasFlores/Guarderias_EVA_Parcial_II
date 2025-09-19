@@ -1,0 +1,6 @@
+@GestionGuarderiaBackEnd_HostAddress = http://localhost:5121
+
+GET {{GestionGuarderiaBackEnd_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
