@@ -214,7 +214,8 @@
               <input type="date" 
                      class="form-control" 
                      id="fechaNacimiento" 
-                     [(ngModel)]="ninoForm.fechaNacimiento" 
+                     [ngModel]="ninoForm.fechaNacimiento | date:'yyyy-MM-dd'" 
+                     (ngModelChange)="ninoForm.fechaNacimiento = $event" 
                      name="fechaNacimiento" 
                      required>
             </div>

@@ -1,1 +1,46 @@
-<p>gestion works!</p>
+<div class="container mt-4">
+     <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="card-title text-center">Gestión de Niños y Cuidadores</h3>
+                <p class="card-text text-center">Asigne niños a cuidadores de manera eficiente y organizada.</p>
+                <div class="mb-4"></div>
+                <div class="col-md-4">
+                    <label for="cuidadorSelect" class="form-label fw-bold">Seleccione un cuidador:</label>
+                    <select id="cuidadorSelect" class="form-select" [(ngModel)]="selectedCuidadorId">
+            <option value="">Seleccione un cuidador:</option>
+            <option *ngFor="let cuidador of cuidadores" [value]="cuidador.cuidadorId">
+                {{ cuidador.nombre }} - {{ cuidador.especialidad }}
+            </option>
+        </select>
+    </div>
+ 
+
+    <div class="row mt-4">
+        <div class="col-md-10">
+            <table class="table table-responsive table-bordered table-striped shadow">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <button class="btn btn-success">Agregar Niño</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+</div>

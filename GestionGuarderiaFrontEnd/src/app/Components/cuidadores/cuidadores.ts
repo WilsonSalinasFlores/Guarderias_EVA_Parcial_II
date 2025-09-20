@@ -46,7 +46,7 @@ export class Cuidadores implements OnInit {
   }
 
   cargarCuidadores() {
-    // Aquí deberías llamar al servicio para cargar los cuidadores desde el backend
+    
     this.cuidadoresService.cargarTodosLosCuidadores().subscribe({
       next: (data) => {
         this.cuidadores = data;
@@ -92,9 +92,10 @@ export class Cuidadores implements OnInit {
       // Actualizar cuidador existente
       const index = this.cuidadores.findIndex(c => c.cuidadorId === this.cuidadorForm.cuidadorId);
       if (index !== -1) {
+        this.cuidadores[index] = { ...this.cuidadorForm };
         this.cuidadoresService.editarCuidador(this.cuidadorForm).subscribe({
           next: (cuidadorActualizado) => {
-            this.cuidadores[index] = { ...this.cuidadorForm };
+            
           },
           error: (error) => {
             console.error('Error al actualizar el cuidador:', error);
@@ -174,7 +175,7 @@ export class Cuidadores implements OnInit {
     return telefonoRegex.test(telefono) && telefono.replace(/\D/g, '').length >= 9;
   }
 
-  formatearTelefono(telefono: string): string {
+  formatoTelefono(telefono: string): string {
     // Formatear número de teléfono para mostrar
     return telefono.replace(/(\+\d{2})(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4');
   }

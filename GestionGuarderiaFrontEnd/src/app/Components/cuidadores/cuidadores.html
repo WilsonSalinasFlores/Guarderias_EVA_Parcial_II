@@ -127,7 +127,7 @@
               <td>
                 <div>
                   <small class="d-block">
-                    <i class="fas fa-phone me-1"></i>{{ formatearTelefono(cuidador.telefono) }}
+                    <i class="fas fa-phone me-1"></i>{{ formatoTelefono(cuidador.telefono) }}
                   </small>
                   <small class="text-muted">
                     <i class="fas fa-at me-1"></i>{{ cuidador.email }}
@@ -225,7 +225,7 @@
                      [(ngModel)]="cuidadorForm.telefono" 
                      name="telefono" 
                      required
-                     placeholder="+34 612 345 678"
+                     placeholder="+593 9999 048 531"
                      [class.is-invalid]="cuidadorForm.telefono && !validarTelefono(cuidadorForm.telefono)"
                      [class.is-valid]="cuidadorForm.telefono && validarTelefono(cuidadorForm.telefono)">
               <div class="invalid-feedback" *ngIf="cuidadorForm.telefono && !validarTelefono(cuidadorForm.telefono)">

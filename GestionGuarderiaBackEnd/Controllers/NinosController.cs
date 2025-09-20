@@ -28,6 +28,15 @@ namespace GestionGuarderiaBackEnd.Controllers
             return await _context.Ninos.ToListAsync();
         }
 
+        [HttpGet("NoAsignados")]
+        public async Task<ActionResult<IEnumerable<NinoModel>>> GetNiñosNoAsignados()
+        {
+            var ninosNoAsignados = await _context.Ninos
+                .Where(n => !_context.Asignaciones.Any(a => a.NinoId == n.NinoId))
+                .ToListAsync();
+
+            return ninosNoAsignados;
+        }
         // GET: api/Ninos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<NinoModel>> GetNinoModel(int id)
@@ -41,6 +50,7 @@ namespace GestionGuarderiaBackEnd.Controllers
 
             return ninoModel;
         }
+
 
         // PUT: api/Ninos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

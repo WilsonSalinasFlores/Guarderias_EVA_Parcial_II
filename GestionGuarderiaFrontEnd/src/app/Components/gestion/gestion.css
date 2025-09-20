@@ -1,0 +1,253 @@
+/* Estilos para el componente de gestión de asignaciones */
+
+/* Tema amarillo/warning para gestión */
+:host {
+  --primary-color: #ffc107;
+  --primary-light: rgba(255, 193, 7, 0.1);
+  --primary-dark: #e0a800;
+}
+
+/* Animaciones */
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Botones con tema warning */
+.btn-warning {
+  background: linear-gradient(45deg, #ffc107, #ffca2c);
+  border: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(45deg, #e0a800, #f0b90b);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+.btn-outline-warning:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+/* Tabla */
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: var(--primary-light);
+}
+
+/* Modal con tema warning */
+.modal-header.bg-warning {
+  background: linear-gradient(45deg, #ffc107, #ffca2c) !important;
+}
+
+.modal-content {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  border-radius: 15px 15px 0 0;
+}
+
+/* Badges personalizados */
+.badge.bg-warning {
+  background: linear-gradient(45deg, #ffc107, #ffca2c) !important;
+  color: #212529 !important;
+}
+
+.badge.bg-info {
+  background: linear-gradient(45deg, #17a2b8, #20c997) !important;
+}
+
+/* Checkboxes personalizados */
+.form-check-input:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.form-check-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+
+/* Estados de formulario */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
+
+/* Iconos de avatar */
+.rounded-circle {
+  background: linear-gradient(45deg, #ffc107, #ffca2c);
+}
+
+.bg-warning.rounded-circle {
+  background: linear-gradient(45deg, #ffc107, #ffca2c) !important;
+}
+
+/* Animación de entrada para cards de estadísticas */
+.card.bg-warning,
+.card.bg-info,
+.card.bg-success,
+.card.bg-primary {
+  animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Área de selección de niños */
+.border {
+  border-color: #dee2e6 !important;
+}
+
+.form-check:hover {
+  background-color: var(--primary-light);
+  transition: background-color 0.2s ease;
+}
+
+.form-check.bg-light {
+  background-color: var(--primary-light) !important;
+}
+
+/* Cards de niños disponibles */
+.card.border-success:hover {
+  border-color: #28a745 !important;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Badges de niños asignados */
+.badge.bg-info.small {
+  font-size: 0.7em;
+  padding: 0.4em 0.6em;
+  margin: 0.1em;
+  border-radius: 12px;
+}
+
+/* Scroll personalizado */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-group .btn {
+    margin-bottom: 0.25rem;
+  }
+  
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+
+  .badge.small {
+    font-size: 0.6em;
+  }
+
+  .modal-dialog {
+    margin: 0.5rem;
+  }
+}
+
+/* Estados especiales */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Efectos hover para iconos */
+.fas {
+  transition: all 0.2s ease;
+}
+
+.btn:hover .fas {
+  transform: scale(1.1);
+}
+
+/* Animación para cards de resumen */
+.card.bg-primary {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Estilo para el backdrop del modal */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Mejoras para pantallas pequeñas */
+@media (max-width: 576px) {
+  .container-fluid {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .d-flex.flex-wrap.gap-1 {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .badge.bg-info.small {
+    margin-bottom: 0.2rem;
+    display: inline-block;
+  }
+}
+
+/* Estilo para elementos seleccionados */
+.form-check input:checked + label {
+  font-weight: 500;
+}
+
+.form-check input:checked + label .bg-info {
+  background: linear-gradient(45deg, #28a745, #20c997) !important;
+}
