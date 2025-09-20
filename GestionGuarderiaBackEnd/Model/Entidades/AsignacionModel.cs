@@ -16,14 +16,14 @@ namespace GestionGuarderiaBackEnd.Models.Entidades
         public int NinoId { get; set; }
 
         [ForeignKey("NinoId")]
-        public ICollection<NinoModel> Ninos { get; set; }
+        public ICollection<NinoModel>? Ninos { get; set; }
 
         // Clave foránea hacia Cuidador
         [Required]
         public int CuidadorId { get; set; }
 
         [ForeignKey("CuidadorId")]
-        public CuidadorModel Cuidador { get; set; }
+        public CuidadorModel? Cuidador { get; set; }
 
         [Required]
         public DateTime FechaAsignacion { get; set; }

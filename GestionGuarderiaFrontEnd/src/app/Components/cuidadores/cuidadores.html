@@ -1,1 +1,306 @@
-<p>cuidadores works!</p>
+<div class="container-fluid py-4">
+  <!-- Header -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h2 class="text-success mb-1">
+            <i class="fas fa-user-nurse me-2"></i>Gestión de Cuidadores
+          </h2>
+          <p class="text-muted mb-0">Administra el personal de cuidadores de la guardería</p>
+        </div>
+        <button class="btn btn-success btn-lg shadow-sm" (click)="abrirModalAgregar()">
+          <i class="fas fa-plus me-2"></i>Agregar Cuidador
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estadísticas -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card bg-success text-white h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h6 class="card-title">Total Cuidadores</h6>
+              <h3 class="mb-0">{{ cuidadores.length }}</h3>
+            </div>
+            <div class="align-self-center">
+              <i class="fas fa-users fa-2x opacity-75"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-info text-white h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h6 class="card-title">Especialidades</h6>
+              <h3 class="mb-0">{{ obtenerEspecialidadesUnicas() }}</h3>
+            </div>
+            <div class="align-self-center">
+              <i class="fas fa-graduation-cap fa-2x opacity-75"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-warning text-white h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h6 class="card-title">Más Común</h6>
+              <h3 class="mb-0 small">{{ obtenerEspecialidadMasComun() }}</h3>
+            </div>
+            <div class="align-self-center">
+              <i class="fas fa-star fa-2x opacity-75"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-primary text-white h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h6 class="card-title">Educación Infantil</h6>
+              <h3 class="mb-0">{{ contarCuidadoresPorEspecialidad('Educación Infantil') }}</h3>
+            </div>
+            <div class="align-self-center">
+              <i class="fas fa-chalkboard-teacher fa-2x opacity-75"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de Cuidadores -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-light">
+      <h5 class="card-title mb-0">
+        <i class="fas fa-list me-2"></i>Personal de Cuidadores
+      </h5>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive" *ngIf="cuidadores.length > 0; else noData">
+        <table class="table table-hover mb-0">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Cuidador</th>
+              <th>Especialidad</th>
+              <th>Contacto</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cuidador of cuidadores" class="align-middle">
+              <td>
+                <span class="badge bg-success">{{ cuidador.cuidadorId }}</span>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3" 
+                       style="width: 40px; height: 40px;">
+                    <i class="fas fa-user text-white"></i>
+                  </div>
+                  <div>
+                    <strong>{{ cuidador.nombre }}</strong>
+                    <br>
+                    <small class="text-muted">
+                      <i class="fas fa-envelope me-1"></i>{{ cuidador.email }}
+                    </small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="badge bg-info">
+                  <i class="fas fa-certificate me-1"></i>{{ cuidador.especialidad }}
+                </span>
+              </td>
+              <td>
+                <div>
+                  <small class="d-block">
+                    <i class="fas fa-phone me-1"></i>{{ formatearTelefono(cuidador.telefono) }}
+                  </small>
+                  <small class="text-muted">
+                    <i class="fas fa-at me-1"></i>{{ cuidador.email }}
+                  </small>
+                </div>
+              </td>
+              <td class="text-center">
+                <div class="btn-group" role="group">
+                  <button class="btn btn-outline-success btn-sm" 
+                          (click)="abrirModalEditar(cuidador)"
+                          title="Editar cuidador">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm" 
+                          (click)="eliminarCuidador(cuidador.cuidadorId)"
+                          title="Eliminar cuidador">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Estado vacío -->
+      <ng-template #noData>
+        <div class="text-center py-5">
+          <i class="fas fa-user-nurse fa-4x text-muted mb-3"></i>
+          <h5 class="text-muted">No hay cuidadores registrados</h5>
+          <p class="text-muted">Comienza agregando el primer cuidador al equipo</p>
+          <button class="btn btn-success" (click)="abrirModalAgregar()">
+            <i class="fas fa-plus me-2"></i>Agregar Primer Cuidador
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Agregar/Editar Cuidador -->
+<div class="modal fade" [class.show]="showModal" [style.display]="showModal ? 'block' : 'none'" 
+     tabindex="-1" *ngIf="showModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title">
+          <i class="fas" [class.fa-plus]="!isEditing" [class.fa-edit]="isEditing" class="me-2"></i>
+          {{ modalTitle }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" (click)="cerrarModal()"></button>
+      </div>
+      
+      <form (ngSubmit)="guardarCuidador()" #cuidadorFormRef="ngForm">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="nombre" class="form-label">
+                <i class="fas fa-user me-1"></i>Nombre Completo *
+              </label>
+              <input type="text" 
+                     class="form-control" 
+                     id="nombre" 
+                     [(ngModel)]="cuidadorForm.nombre" 
+                     name="nombre" 
+                     required
+                     placeholder="Ingrese el nombre completo del cuidador">
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="especialidad" class="form-label">
+                <i class="fas fa-graduation-cap me-1"></i>Especialidad *
+              </label>
+              <select class="form-select" 
+                      id="especialidad" 
+                      [(ngModel)]="cuidadorForm.especialidad" 
+                      name="especialidad" 
+                      required>
+                <option value="">Seleccione una especialidad</option>
+                <option *ngFor="let especialidad of especialidades" [value]="especialidad">
+                  {{ especialidad }}
+                </option>
+              </select>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="telefono" class="form-label">
+                <i class="fas fa-phone me-1"></i>Teléfono *
+              </label>
+              <input type="tel" 
+                     class="form-control" 
+                     id="telefono" 
+                     [(ngModel)]="cuidadorForm.telefono" 
+                     name="telefono" 
+                     required
+                     placeholder="+34 612 345 678"
+                     [class.is-invalid]="cuidadorForm.telefono && !validarTelefono(cuidadorForm.telefono)"
+                     [class.is-valid]="cuidadorForm.telefono && validarTelefono(cuidadorForm.telefono)">
+              <div class="invalid-feedback" *ngIf="cuidadorForm.telefono && !validarTelefono(cuidadorForm.telefono)">
+                Formato de teléfono inválido
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="email" class="form-label">
+              <i class="fas fa-envelope me-1"></i>Correo Electrónico *
+            </label>
+            <input type="email" 
+                   class="form-control" 
+                   id="email" 
+                   [(ngModel)]="cuidadorForm.email" 
+                   name="email" 
+                   required
+                   placeholder="nombre@guarderia.com"
+                   [class.is-invalid]="cuidadorForm.email && !validarEmail(cuidadorForm.email)"
+                   [class.is-valid]="cuidadorForm.email && validarEmail(cuidadorForm.email)">
+            <div class="invalid-feedback" *ngIf="cuidadorForm.email && !validarEmail(cuidadorForm.email)">
+              Formato de email inválido
+            </div>
+            <div class="form-text">
+              <i class="fas fa-info-circle me-1"></i>
+              Email corporativo preferible para comunicaciones oficiales
+            </div>
+          </div>
+
+          <!-- Vista previa de información -->
+          <div class="card bg-light mt-3" *ngIf="cuidadorForm.nombre || cuidadorForm.especialidad">
+            <div class="card-header">
+              <h6 class="mb-0">
+                <i class="fas fa-eye me-2"></i>Vista Previa
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3" 
+                     style="width: 50px; height: 50px;">
+                  <i class="fas fa-user text-white"></i>
+                </div>
+                <div>
+                  <strong>{{ cuidadorForm.nombre || 'Nombre del cuidador' }}</strong>
+                  <br>
+                  <span class="badge bg-info">{{ cuidadorForm.especialidad || 'Especialidad' }}</span>
+                  <br>
+                  <small class="text-muted">
+                    <i class="fas fa-phone me-1"></i>{{ cuidadorForm.telefono || 'Teléfono' }} | 
+                    <i class="fas fa-envelope me-1"></i>{{ cuidadorForm.email || 'Email' }}
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cerrarModal()">
+            <i class="fas fa-times me-2"></i>Cancelar
+          </button>
+          <button type="submit" 
+                  class="btn btn-success" 
+                  [disabled]="!cuidadorFormRef.form.valid || 
+                            (cuidadorForm.email && !validarEmail(cuidadorForm.email)) ||
+                            (cuidadorForm.telefono && !validarTelefono(cuidadorForm.telefono))">
+            <i class="fas" [class.fa-save]="isEditing" [class.fa-plus]="!isEditing" class="me-2"></i>
+            {{ isEditing ? 'Actualizar' : 'Guardar' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop del modal -->
+<div class="modal-backdrop fade" [class.show]="showModal" *ngIf="showModal" (click)="cerrarModal()"></div>

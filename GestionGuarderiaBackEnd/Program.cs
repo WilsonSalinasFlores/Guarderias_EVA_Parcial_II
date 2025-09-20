@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors("login");
+app.UseCors("Guarderia");
 
 app.UseHttpsRedirection();
 

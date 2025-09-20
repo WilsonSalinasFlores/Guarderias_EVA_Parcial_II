@@ -26,7 +26,7 @@ namespace GestionGuarderiaBackEnd.Models.Entidades
         public string Email { get; set; }
 
         [JsonIgnore]
-        public ICollection<AsignacionModel> Asignaciones { get; set; }
+        public ICollection<AsignacionModel>? Asignaciones { get; set; }
 
         
     }

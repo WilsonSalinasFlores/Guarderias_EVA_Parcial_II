@@ -1,1 +1,266 @@
-<p>ninos-component works!</p>
+<div class="container-fluid py-4">
+  <!-- Header -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h2 class="text-primary mb-1">
+            <i class="fas fa-baby me-2"></i>Gestión de Niños
+          </h2>
+          <p class="text-muted mb-0">Administra la información de los niños en la guardería</p>
+        </div>
+        <button class="btn btn-primary btn-lg shadow-sm" (click)="abrirModalAgregar()">
+          <i class="fas fa-plus me-2"></i>Agregar Niño
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estadísticas -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card bg-primary text-white h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h6 class="card-title">Total Niños</h6>
+              <h3 class="mb-0">{{ ninos.length }}</h3>
+            </div>
+            <div class="align-self-center">
+              <i class="fas fa-users fa-2x opacity-75"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-success text-white h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h6 class="card-title">Edad Promedio</h6>
+              <h3 class="mb-0">{{ obtenerEdadPromedio() }} años</h3>
+            </div>
+            <div class="align-self-center">
+              <i class="fas fa-birthday-cake fa-2x opacity-75"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-warning text-white h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h6 class="card-title">Con Alergias</h6>
+              <h3 class="mb-0">{{ contarNinosConAlergias() }}</h3>
+            </div>
+            <div class="align-self-center">
+              <i class="fas fa-exclamation-triangle fa-2x opacity-75"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-info text-white h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h6 class="card-title">Menores 3 años</h6>
+              <h3 class="mb-0">{{ contarNinosMenoresTresAnos() }}</h3>
+            </div>
+            <div class="align-self-center">
+              <i class="fas fa-baby fa-2x opacity-75"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de Niños -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-light">
+      <h5 class="card-title mb-0">
+        <i class="fas fa-list me-2"></i>Lista de Niños Registrados
+      </h5>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive" *ngIf="ninos.length > 0; else noData">
+        <table class="table table-hover mb-0">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Nombre Completo</th>
+              <th>Fecha Nacimiento</th>
+              <th>Edad</th>
+              <th>Alergias</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let nino of ninos" class="align-middle">
+              <td>
+                <span class="badge bg-primary">{{ nino.ninoId }}</span>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                       style="width: 40px; height: 40px;">
+                    <i class="fas fa-child text-white"></i>
+                  </div>
+                  <div>
+                    <strong>{{ nino.nombre }} {{ nino.apellido }}</strong>
+                  </div>
+                </div>
+              </td>
+              <td>{{ formatearFecha(nino.fechaNacimiento) }}</td>
+              <td>
+                <span class="badge" 
+                      [class]="calcularEdad(nino.fechaNacimiento) < 3 ? 'bg-info' : 'bg-success'">
+                  {{ calcularEdad(nino.fechaNacimiento) }} año(s)
+                </span>
+              </td>
+              <td>
+                <span class="badge" 
+                      [class]="nino.alergias && nino.alergias.toLowerCase() !== 'ninguna' ? 'bg-warning text-dark' : 'bg-success'">
+                  {{ nino.alergias || 'Sin especificar' }}
+                </span>
+              </td>
+              <td class="text-center">
+                <div class="btn-group" role="group">
+                  <button class="btn btn-outline-primary btn-sm" 
+                          (click)="abrirModalEditar(nino)"
+                          title="Editar niño">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm" 
+                          (click)="eliminarNino(nino.ninoId)"
+                          title="Eliminar niño">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Estado vacío -->
+      <ng-template #noData>
+        <div class="text-center py-5">
+          <i class="fas fa-baby fa-4x text-muted mb-3"></i>
+          <h5 class="text-muted">No hay niños registrados</h5>
+          <p class="text-muted">Comienza agregando el primer niño a la guardería</p>
+          <button class="btn btn-primary" (click)="abrirModalAgregar()">
+            <i class="fas fa-plus me-2"></i>Agregar Primer Niño
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Agregar/Editar Niño -->
+<div class="modal fade" [class.show]="showModal" [style.display]="showModal ? 'block' : 'none'" 
+     tabindex="-1" *ngIf="showModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          <i class="fas" [class.fa-plus]="!isEditing" [class.fa-edit]="isEditing" class="me-2"></i>
+          {{ modalTitle }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" (click)="cerrarModal()"></button>
+      </div>
+      
+      <form (ngSubmit)="guardarNino()" #ninoFormRef="ngForm">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="nombre" class="form-label">
+                <i class="fas fa-user me-1"></i>Nombre *
+              </label>
+              <input type="text" 
+                     class="form-control" 
+                     id="nombre" 
+                     [(ngModel)]="ninoForm.nombre" 
+                     name="nombre" 
+                     required
+                     placeholder="Ingrese el nombre">
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="apellido" class="form-label">
+                <i class="fas fa-user me-1"></i>Apellido *
+              </label>
+              <input type="text" 
+                     class="form-control" 
+                     id="apellido" 
+                     [(ngModel)]="ninoForm.apellido" 
+                     name="apellido" 
+                     required
+                     placeholder="Ingrese el apellido">
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="fechaNacimiento" class="form-label">
+                <i class="fas fa-calendar me-1"></i>Fecha de Nacimiento *
+              </label>
+              <input type="date" 
+                     class="form-control" 
+                     id="fechaNacimiento" 
+                     [(ngModel)]="ninoForm.fechaNacimiento" 
+                     name="fechaNacimiento" 
+                     required>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label class="form-label">
+                <i class="fas fa-birthday-cake me-1"></i>Edad Actual
+              </label>
+              <div class="form-control-plaintext bg-light rounded p-2">
+                {{ ninoForm.fechaNacimiento ? calcularEdad(ninoForm.fechaNacimiento) : 0 }} año(s)
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="alergias" class="form-label">
+              <i class="fas fa-exclamation-triangle me-1"></i>Alergias
+            </label>
+            <textarea class="form-control" 
+                      id="alergias" 
+                      [(ngModel)]="ninoForm.alergias" 
+                      name="alergias" 
+                      rows="3"
+                      placeholder="Especifique las alergias del niño (si no tiene, escriba 'Ninguna')"></textarea>
+            <div class="form-text">
+              <i class="fas fa-info-circle me-1"></i>
+              Información importante para el cuidado del niño
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cerrarModal()">
+            <i class="fas fa-times me-2"></i>Cancelar
+          </button>
+          <button type="submit" 
+                  class="btn btn-primary" 
+                  [disabled]="!ninoFormRef.form.valid">
+            <i class="fas" [class.fa-save]="isEditing" [class.fa-plus]="!isEditing" class="me-2"></i>
+            {{ isEditing ? 'Actualizar' : 'Guardar' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop del modal -->
+<div class="modal-backdrop fade" [class.show]="showModal" *ngIf="showModal" (click)="cerrarModal()"></div>

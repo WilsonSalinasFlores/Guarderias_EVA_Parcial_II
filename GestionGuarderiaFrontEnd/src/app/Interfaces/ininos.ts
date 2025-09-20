@@ -1,4 +1,4 @@
-export interface Ninos {
+export interface INinos {
     ninoId: number,
     nombre: string,
     apellido: string,

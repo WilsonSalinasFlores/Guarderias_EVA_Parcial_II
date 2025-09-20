@@ -1,0 +1,207 @@
+/* Estilos para el componente de gestión de cuidadores */
+
+/* Tema verde para cuidadores */
+:host {
+  --primary-color: #28a745;
+  --primary-light: rgba(40, 167, 69, 0.1);
+  --primary-dark: #1e7e34;
+}
+
+/* Animaciones */
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Botones con tema verde */
+.btn-success {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  background: linear-gradient(45deg, #1e7e34, #17a2b8);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.btn-outline-success:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+/* Tabla */
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: var(--primary-light);
+}
+
+/* Modal con tema verde */
+.modal-header.bg-success {
+  background: linear-gradient(45deg, #28a745, #20c997) !important;
+}
+
+.modal-content {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  border-radius: 15px 15px 0 0;
+}
+
+/* Badges personalizados */
+.badge.bg-success {
+  background: linear-gradient(45deg, #28a745, #20c997) !important;
+}
+
+.badge.bg-info {
+  background: linear-gradient(45deg, #17a2b8, #6f42c1) !important;
+}
+
+/* Estados de formulario */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.form-control.is-valid {
+  border-color: var(--primary-color);
+}
+
+.form-control.is-invalid {
+  border-color: #dc3545;
+}
+
+/* Iconos de avatar */
+.rounded-circle {
+  background: linear-gradient(45deg, #28a745, #20c997);
+}
+
+/* Animación de entrada para cards de estadísticas */
+.card.bg-success,
+.card.bg-info,
+.card.bg-warning,
+.card.bg-primary {
+  animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Vista previa del cuidador */
+.card.bg-light {
+  border: 2px dashed var(--primary-color);
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Especialidades específicas */
+.badge.bg-info {
+  font-size: 0.75em;
+  padding: 0.5em 0.75em;
+  border-radius: 20px;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-group .btn {
+    margin-bottom: 0.25rem;
+  }
+  
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+
+  .card.bg-warning h3.small {
+    font-size: 0.9rem;
+    line-height: 1.2;
+  }
+}
+
+/* Estados especiales */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Mejoras para contacto */
+.table td small {
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+/* Efectos hover para iconos */
+.fas {
+  transition: all 0.2s ease;
+}
+
+.btn:hover .fas {
+  transform: scale(1.1);
+}
+
+/* Validación visual mejorada */
+.is-valid {
+  animation: validPulse 0.6s ease-in-out;
+}
+
+@keyframes validPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+  }
+}
+
+/* Estilo para el backdrop del modal */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Mejoras para pantallas pequeñas */
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 0.5rem;
+  }
+  
+  .container-fluid {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
