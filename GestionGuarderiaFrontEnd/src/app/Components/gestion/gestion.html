@@ -6,41 +6,79 @@
                 <div class="mb-4"></div>
                 <div class="col-md-4">
                     <label for="cuidadorSelect" class="form-label fw-bold">Seleccione un cuidador:</label>
-                    <select id="cuidadorSelect" class="form-select" [(ngModel)]="selectedCuidadorId">
-            <option value="">Seleccione un cuidador:</option>
-            <option *ngFor="let cuidador of cuidadores" [value]="cuidador.cuidadorId">
-                {{ cuidador.nombre }} - {{ cuidador.especialidad }}
-            </option>
-        </select>
-    </div>
+                    <select id="cuidadorSelect" class="form-select" [(ngModel)]="selectedCuidadorId" (change)="onCuidadorChange()">
+                    <option value="" disabled selected>Seleccione un cuidador</option>
+                    <option *ngFor="let cuidador of cuidadores" [value]="cuidador.cuidadorId">
+                        {{ cuidador.nombre }} - {{ cuidador.especialidad }}
+                    </option>
+                </select>
+            </div>
  
 
-    <div class="row mt-4">
-        <div class="col-md-10">
-            <table class="table table-responsive table-bordered table-striped shadow">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Fecha de Nacimiento</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="5">
-                            <button class="btn btn-success">Agregar Niño</button>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+        <div class="row mt-4">
+            <div class="col-md-10 ">
+                <table class="table table-responsive table-bordered table-striped shadow mb-3">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (asignacion of asignaciones; track $index)  {
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ asignacion.nino?.nombre }}</td>
+                                <td>{{ asignacion.nino?.apellido }}</td>
+                                <td>{{ asignacion.nino?.fechaNacimiento | date }}</td>
+                                <td>
+                                    <button class="btn btn-danger" (click)="eliminarAsignacionNino(asignacion)">Eliminar</button>
+                                    
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            
+                            <td colspan="5">
+                                <button class="btn btn-success" (click)="abrirModalAgregarNino()">Agregar Niño</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
+
+
     </div>
-
-
 </div>
+
+
+
+<div class="modal fade" [ngClass]="{'show d-block': show_modal}" tabindex="-1" role="dialog" [style.display]="show_modal ? 'block' : 'none'">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="agregarNinoLabel">Agregar Niño</h5>
+        <button type="button" class="btn-close" (click)="show_modal = false" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="ninoSelect" class="form-label">Selecciona el niño:</label>
+            <select class="form-select" id="ninoSelect" [(ngModel)]="ninoSeleccionado" name="ninoSeleccionado">
+              <option value="" disabled selected>-- Seleccione un niño --</option>
+              <option *ngFor="let nino of ninosDisponibles" [ngValue]="nino">{{ nino.nombre + ' ' + nino.apellido }}</option>
+            </select>
+          </div>
+        </form>
+        <button type="button" class="btn btn-secondary" (click)="show_modal = false">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="agregarNino()">Aceptar</button>
+      </div>
+    </div>
+  </div>
 </div>

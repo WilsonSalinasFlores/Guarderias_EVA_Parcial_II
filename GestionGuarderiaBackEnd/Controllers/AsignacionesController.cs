@@ -42,6 +42,23 @@ namespace GestionGuarderiaBackEnd.Controllers
             return asignacionModel;
         }
 
+        // GET: api/Asignaciones/5
+        [HttpGet("PorCuidador/{id}")]
+        public async Task<ActionResult<IEnumerable<AsignacionModel>>> GetAsignacionByCuidadorModel(int id)
+        {
+            var asignacionModel = await _context.Asignaciones.Where(a=> a.CuidadorId==id)
+                .Include(a=> a.Nino)
+                .Include(a=> a.Cuidador)
+                .ToListAsync();
+
+            if (asignacionModel == null)
+            {
+                return NotFound();
+            }
+
+            return asignacionModel;
+        }
+
         // PUT: api/Asignaciones/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

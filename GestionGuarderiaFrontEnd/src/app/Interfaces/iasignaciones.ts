@@ -6,7 +6,7 @@ export interface IAsignaciones {
     ninoId: number,
     cuidadorId: number,
     fechaAsignacion: Date,
-    ninos: INinos [],
-    Cuidador: ICuidadores
+    nino?: INinos ,
+    cuidador?: ICuidadores
 
 }

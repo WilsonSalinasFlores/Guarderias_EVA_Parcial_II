@@ -39,12 +39,12 @@ export class CuidadoresService {
         catchError(this.manejoErrores)
       );
   }
-  
+
   eliminarCuidador(cuidadorId: number): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}${this.CONTEXT}/${cuidadorId}`)
       .pipe(
         catchError(this.manejoErrores)
       );
   }
-
+  
 }

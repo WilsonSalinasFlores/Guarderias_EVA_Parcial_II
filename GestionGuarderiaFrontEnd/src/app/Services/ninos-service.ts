@@ -52,4 +52,11 @@ export class NinosService {
         catchError(this.manejoErrores)
       );
   }
+
+  cargarNinosNoAsignados(): Observable<INinos[]> {
+    return this.http.get<INinos[]>(`${this.API_URL}${this.CONTEXT}/NoAsignados`)
+      .pipe(
+        catchError(this.manejoErrores)
+      );
+  }
 }
